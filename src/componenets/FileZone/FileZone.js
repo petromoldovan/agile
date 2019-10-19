@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import isEmpty from 'lodash/isEmpty'
 import { createPortal } from 'react-dom'
-import axios from 'axios'
 import FileZoneContainer from './components/styled/FileZoneContainer'
 import File from './components/styled/File'
 import Word from "./components/Word"
