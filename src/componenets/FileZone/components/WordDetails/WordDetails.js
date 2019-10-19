@@ -5,6 +5,7 @@ import get from "lodash/get"
 import axios from 'axios'
 import {WORD_STYLES, WORDS_API} from "../../../../constants"
 import {updateWordRequest} from "../../../../data/actions/actions"
+import DetailRow from "./styled/DetailRow"
 
 const WordDetails = ({ id }) => {
   const dispatch = useDispatch()
@@ -27,18 +28,19 @@ const WordDetails = ({ id }) => {
 
   return (
     <WordDetailsContainer>
-      <p>Applied styles:</p>
-      <p>Bold: {wordStyles[WORD_STYLES.BOLD] ? 'TRUE' : 'FALSE'}</p>
-      <p>Italic: {wordStyles[WORD_STYLES.ITALIC] ? 'TRUE' : 'FALSE'}</p>
-      <p>Underline: {wordStyles[WORD_STYLES.UNDERLINE] ? 'TRUE' : 'FALSE'}</p>
+      <h2>Applied styles:</h2>
+      <DetailRow>Bold: {wordStyles[WORD_STYLES.BOLD] ? 'TRUE' : 'FALSE'}</DetailRow>
+      <DetailRow>Italic: {wordStyles[WORD_STYLES.ITALIC] ? 'TRUE' : 'FALSE'}</DetailRow>
+      <DetailRow>Underline: {wordStyles[WORD_STYLES.UNDERLINE] ? 'TRUE' : 'FALSE'}</DetailRow>
       {
         syns.length > 0 && (
           <div>
-            Synonyms
+            <h2>Synonyms(click to apply):</h2>
             {
-              syns.map((s, idx) => <div
+              syns.map((s, idx) => <DetailRow
                 key={`${idx}${s.word}`}
-                onClick={() => dispatch(updateWordRequest({item: id, value: s.word}))}>{s.word}</div>)
+                isClickable
+                onClick={() => dispatch(updateWordRequest({item: id, value: s.word}))}>{s.word}</DetailRow>)
             }
           </div>
         )

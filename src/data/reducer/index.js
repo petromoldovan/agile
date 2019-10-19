@@ -10,11 +10,9 @@ const reducer = (state = {}, action) => {
     case types.REQUEST_UPDATE_WORD:
       const newState = get(state, `${action.payload.item}`, {})
       newState.value = action.payload.value
-      const returned = Object.assign({}, state, {
+      return Object.assign({}, state, {
         [action.payload.item]: newState
       })
-      console.log('returned', returned)
-      return returned
     default:
       return state
   }
