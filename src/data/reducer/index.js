@@ -1,16 +1,20 @@
+import get from 'lodash/get'
 import types from "../actions/types"
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case types.SUCCESS_UPDATE_WORD_FORMATTING:
-      console.log('got action', action)
-      const newState = Object.assign({}, state, {
+      return Object.assign({}, state, {
         [action.payload.item]: action.payload.styles
       })
-
-      console.log('sttate', newState)
-
-      return newState
+    case types.REQUEST_UPDATE_WORD:
+      const newState = get(state, `${action.payload.item}`, {})
+      newState.value = action.payload.value
+      const returned = Object.assign({}, state, {
+        [action.payload.item]: newState
+      })
+      console.log('returned', returned)
+      return returned
     default:
       return state
   }

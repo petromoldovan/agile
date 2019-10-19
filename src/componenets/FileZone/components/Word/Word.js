@@ -5,15 +5,18 @@ import get from 'lodash/get'
 import {WORD_STYLES} from "../../../../constants"
 
 const Word = ({word, id, ...props}) => {
-  const wordStyles = useSelector(state => get(state, `[${id}]`, {}))
+  const wordState = useSelector(state => get(state, `[${id}]`, {}))
+  const wordValue = useSelector(state => get(state, `[${id}].value`, word))
 
-  return  (
+  const value = wordValue ? wordValue : word
+
+  return (
     <WordStyled
-      isBold={wordStyles[WORD_STYLES.BOLD]}
-      isItalic={wordStyles[WORD_STYLES.ITALIC]}
-      isUnderlined={wordStyles[WORD_STYLES.UNDERLINE]}
+      isBold={wordState[WORD_STYLES.BOLD]}
+      isItalic={wordState[WORD_STYLES.ITALIC]}
+      isUnderlined={wordState[WORD_STYLES.UNDERLINE]}
       {...props}>
-      {word}
+      {value}
     </WordStyled>
   )
 }

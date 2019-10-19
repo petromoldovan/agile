@@ -14,3 +14,8 @@ export const updateWordFormattingFail = payload => ({
 	type: types.FAIL_UPDATE_WORD_FORMATTING,
 	payload
 })
+
+export const updateWordRequest = payload => ({
+	type: types.REQUEST_UPDATE_WORD,
+	payload
+})

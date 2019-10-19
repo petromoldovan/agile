@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import WordDetailsContainer from "./styled/WordDetailsContainer"
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import get from "lodash/get"
 import axios from 'axios'
 import {WORD_STYLES, WORDS_API} from "../../../../constants"
+import {updateWordRequest} from "../../../../data/actions/actions"
 
 const WordDetails = ({ id }) => {
+  const dispatch = useDispatch()
   const [syns, setSyns] = useState(() => [])
   const wordStyles = useSelector(state => get(state, `[${id}]`, {}))
 
@@ -34,7 +36,9 @@ const WordDetails = ({ id }) => {
           <div>
             Synonyms
             {
-              syns.map((s, idx) => <div key={`${idx}${s.word}`}>{s.word}</div>)
+              syns.map((s, idx) => <div
+                key={`${idx}${s.word}`}
+                onClick={() => dispatch(updateWordRequest({item: id, value: s.word}))}>{s.word}</div>)
             }
           </div>
         )
