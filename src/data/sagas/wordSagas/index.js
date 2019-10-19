@@ -1,7 +1,7 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
 import get from 'lodash/get'
 import types from "../../actions/types"
-import {updateWordFormattingSuccess} from "../../actions/actions"
+import {updateWordFormattingFail, updateWordFormattingSuccess} from "../../actions/actions"
 
 function* updateServiceSaga({ payload: { item, style } }) {
   try {
@@ -12,10 +12,9 @@ function* updateServiceSaga({ payload: { item, style } }) {
     } else {
       newStyles[style] = false
     }
-
     yield put(updateWordFormattingSuccess({item, styles: newStyles}))
   } catch (e) {
-    console.log('e', e)
+    yield put(updateWordFormattingFail())
   }
 }
 

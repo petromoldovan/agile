@@ -9,8 +9,16 @@ const FileZone = ({ text = ''}) => {
   const [selectedItem, setSelectedItem] = useState(null)
 
   const renderedComponents = useMemo(() => {
-    return text.split(' ').map((word, idx) => <Word key={`${idx}${word}`} onClick={() => setSelectedItem(`${idx}${word}`)} word={word} />)
-  }, [text])
+    return text.split(' ').map((word, idx) => {
+      const id = `${idx}${word}`
+      return <Word
+        key={id}
+        id={id}
+        isSelected={id === selectedItem}
+        onClick={() => setSelectedItem(`${idx}${word}`)}
+        word={word} />
+    })
+  }, [text, selectedItem])
 
   return (
     <React.Fragment>
