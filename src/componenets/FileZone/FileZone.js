@@ -7,21 +7,24 @@ import Word from "./components/Word"
 import ControlPanel from "../control-panel/ControlPanel"
 import {DOMIDS} from "../../constants"
 import WordDetails from "./components/WordDetails/WordDetails"
+import {breakText} from "../utils"
 
 const FileZone = ({ text = ''}) => {
   const [selectedItem, setSelectedItem] = useState(null)
+  const textProcessed = useMemo(() => breakText(text), [text])
 
   const renderedComponents = useMemo(() => {
-    return text.split(' ').map((word, idx) => {
-      const id = `${idx}-${word}`
+    return textProcessed.map((wordObj, idx) => {
+      const id = `${idx}-${wordObj.text}`
       return <Word
         key={id}
         id={id}
+        noMarginRight={wordObj.noMarginRight}
         isSelected={id === selectedItem}
         onClick={() => setSelectedItem(id)}
-        word={word} />
+        word={wordObj.text} />
     })
-  }, [text, selectedItem])
+  }, [textProcessed, selectedItem])
 
   return (
     <React.Fragment>
